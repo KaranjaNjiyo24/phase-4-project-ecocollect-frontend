@@ -134,7 +134,116 @@ function AssignmentsPage() {
                     setError(err.message);
                   });
               }
+              return (
+                <div className="card">
+                  <h2>Assignments</h2>
+                  {error && <p className="form-error">{error}</p>}
             
+                       {/* LIST ALL ASSIGNMENTS */}
+
+                  {assignments.length > 0 ? (
+                    <ul className="eco-list">
+                      {assignments.map((a) => (
+                        <li key={a.id}>
+                          <strong>ID:</strong> {a.id} |{" "}
+                          <strong>Status:</strong> {a.status} |{" "}
+                          <strong>Scheduled:</strong> {a.scheduled_date || "N/A"} |{" "}
+                          <strong>Collector:</strong> {a.collector_id} |{" "}
+                          <strong>Pickup Request:</strong> {a.pickup_request_id}
+                          {"  "}
+                          {/* Edit & Delete buttons */}
+                          <button style={{ marginLeft: "auto" }} onClick={() => handleEditClick(a)}>
+                            Edit
+                          </button>
+                          <button
+                            style={{ marginLeft: "0.5rem", backgroundColor: "#d32f2f" }}
+                            onClick={() => handleDeleteClick(a.id)}
+                          >
+                            Delete
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No assignments found.</p>
+                  )}
+            
+                  <hr />
+            
+                       {/* CREATE A NEW ASSIGNMENT FORM */}
+}
+                  <h3>Create New Assignment</h3>
+                  <form onSubmit={handleSubmit}>
+                    <label>Collector ID</label>
+                    <input
+                      type="number"
+                      value={collectorId}
+                      onChange={(e) => setCollectorId(e.target.value)}
+                      required
+                    />
+            
+                    <label>Pickup Request ID</label>
+                    <input
+                      type="number"
+                      value={pickupRequestId}
+                      onChange={(e) => setPickupRequestId(e.target.value)}
+                      required
+                    />
+            
+                    <label>Status</label>
+                    <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                      <option value="pending">pending</option>
+                      <option value="in-progress">in-progress</option>
+                      <option value="completed">completed</option>
+                    </select>
+            
+                    <label>Scheduled Date (YYYY-MM-DD)</label>
+                    <input
+                      type="text"
+                      value={scheduledDate}
+                      onChange={(e) => setScheduledDate(e.target.value)}
+                    />
+            
+                    <button type="submit">Create Assignment</button>
+                  </form>
+
+                       {/* EDIT AN EXISTING ASSIGNMENT FORM */}
+                  
+                  {editMode && assignmentToEdit && (
+                    <>
+                      <hr />
+                      <h3>Edit Assignment (ID: {assignmentToEdit.id})</h3>
+                      <form onSubmit={handleUpdate}>
+                        <label>Status</label>
+                        <select value={editStatus} onChange={(e) => setEditStatus(e.target.value)}>
+                          <option value="pending">pending</option>
+                          <option value="in-progress">in-progress</option>
+                          <option value="completed">completed</option>
+                        </select>
+            
+                        <label>Scheduled Date (YYYY-MM-DD)</label>
+                        <input
+                          type="text"
+                          value={editDate}
+                          onChange={(e) => setEditDate(e.target.value)}
+                        />
+            
+                        <button type="submit">Update Assignment</button>
+                        <button
+                          type="button"
+                          style={{ marginLeft: "1rem", backgroundColor: "#ccc" }}
+                          onClick={() => {
+                            setEditMode(false);
+                            setAssignmentToEdit(null);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </form>
+                    </>
+                  )}
+                </div>
+              );
 }
 
 export default AssignmentsPage;
