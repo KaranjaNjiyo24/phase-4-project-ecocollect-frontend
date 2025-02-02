@@ -57,6 +57,60 @@ const formik = useFormik({
         .catch((err) => setServerError(err.message));
     },
   });
+  return (
+    <div className="card">
+      <h2>Create New User</h2>
+
+      {/* Display server success/error */}
+      {serverError && <p className="form-error">{serverError}</p>}
+      {successMessage && <p className="form-success">{successMessage}</p>}
+
+      <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.username && formik.errors.username && (
+          <div className="form-error">{formik.errors.username}</div>
+        )}
+
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.password && formik.errors.password && (
+          <div className="form-error">{formik.errors.password}</div>
+        )}
+
+        <label htmlFor="role">Role</label>
+        <select
+          id="role"
+          name="role"
+          value={formik.values.role}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        >
+          <option value="resident">resident</option>
+          <option value="collector">collector</option>
+        </select>
+        {formik.touched.role && formik.errors.role && (
+          <div className="form-error">{formik.errors.role}</div>
+        )}
+
+        <button type="submit">Create User</button>
+      </form>
+    </div>
+  );
 }
   
   export default UserForm;
