@@ -22,6 +22,41 @@ function UserForm() {
       .oneOf(["resident", "collector"], "Invalid role")
       .required("Role is required"),
   });  
-  }
+
+// Initialize Formik
+const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+      role: "resident",
+    },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      setServerError("");
+      setSuccessMessage("");
+
+      fetch(`${BASE_URL}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      })
+        .then((r) => {
+          if (!r.ok) {
+            throw new Error(`HTTP status ${r.status}`);
+          }
+          return r.json();
+        })
+        .then(() => {
+          // Set a success message
+          setSuccessMessage("User created successfully!");
+          // Reset form fields
+          resetForm();
+          // After creation, navigate to /users
+          navigate("/users");
+        })
+        .catch((err) => setServerError(err.message));
+    },
+  });
+}
   
   export default UserForm;
