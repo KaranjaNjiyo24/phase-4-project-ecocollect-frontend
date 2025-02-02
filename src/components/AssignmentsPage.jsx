@@ -70,5 +70,14 @@ function AssignmentsPage() {
           });
       }
 
+      //Edit
+       function handleEditClick(a) {
+            setError(null); 
+            setEditMode(true);
+            setAssignmentToEdit(a);
+            setEditStatus(a.status);
+            setEditDate(a.scheduled_date || ""); 
+            }
+}
 
 export default AssignmentsPage;
