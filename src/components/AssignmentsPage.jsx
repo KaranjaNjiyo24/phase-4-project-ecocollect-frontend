@@ -17,6 +17,24 @@ function AssignmentsPage() {
     const [editStatus, setEditStatus] = useState("pending");
     const [editDate, setEditDate] = useState("");
   
+    // Fetch all assignments(GET)
+    useEffect(() => {
+        fetchAssignments();
+      }, []);
+    
+      function fetchAssignments() {
+        fetch(`${BASE_URL}/assignments`)
+          .then((r) => {
+            if (!r.ok) throw new Error(`GET error: ${r.status} ${r.statusText}`);
+            return r.json();
+          })
+          .then((data) => {
+            setAssignments(data);
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
+      }
 
 
 export default AssignmentsPage;
