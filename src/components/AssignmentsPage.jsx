@@ -36,5 +36,39 @@ function AssignmentsPage() {
           });
       }
 
+      //Create a new Assignment(POST)
+      function handleSubmit(e) {
+        e.preventDefault();
+        const newAssignment = {
+          collector_id: collectorId,
+          pickup_request_id: pickupRequestId,
+          status: status,
+          scheduled_date: scheduledDate,
+        };
+    
+        fetch(`${BASE_URL}/assignments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newAssignment),
+        })
+          .then((r) => {
+            if (!r.ok) throw new Error(`POST error: ${r.status} ${r.statusText}`);
+            return r.json();
+          })
+          .then((created) => {
+            // Append newly created assignment to list
+            setAssignments([...assignments, created]);
+    
+            // Reset the create form
+            setCollectorId("");
+            setPickupRequestId("");
+            setStatus("pending");
+            setScheduledDate("");
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
+      }
+
 
 export default AssignmentsPage;
