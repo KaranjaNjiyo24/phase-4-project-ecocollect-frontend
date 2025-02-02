@@ -7,6 +7,7 @@ import BASE_URL from "../config";
 function UserForm() {
   const [serverError, setServerError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
   // React Router hook for navigating
   const navigate = useNavigate();
 
@@ -21,10 +22,10 @@ function UserForm() {
     role: Yup.string()
       .oneOf(["resident", "collector"], "Invalid role")
       .required("Role is required"),
-  });  
+  });
 
-// Initialize Formik
-const formik = useFormik({
+  // Initialize Formik
+  const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
@@ -57,6 +58,7 @@ const formik = useFormik({
         .catch((err) => setServerError(err.message));
     },
   });
+
   return (
     <div className="card">
       <h2>Create New User</h2>
@@ -112,5 +114,5 @@ const formik = useFormik({
     </div>
   );
 }
-  
-  export default UserForm;
+
+export default UserForm;
