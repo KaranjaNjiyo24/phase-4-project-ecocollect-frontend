@@ -77,3 +77,48 @@ ul.eco-list li {
 ul.eco-list li strong {
   color: var(--secondary-color);
 }
+
+form {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+
+form label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: inline-block;
+  color: var(--primary-color);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 4px;
+  margin-bottom: 0.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  transition: border-color var(--transition-speed);
+}
+
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.form-error {
+  color: var(--danger-color);
+  margin-bottom: 0.5rem;
+}
+
+.form-success {
+  color: var(--success-color);
+  margin-bottom: 0.5rem;
+}
