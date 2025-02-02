@@ -122,3 +122,23 @@ form select:focus {
   color: var(--success-color);
   margin-bottom: 0.5rem;
 }
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: background-color var(--transition-speed);
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
