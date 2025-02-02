@@ -78,6 +78,42 @@ function AssignmentsPage() {
             setEditStatus(a.status);
             setEditDate(a.scheduled_date || ""); 
             }
+
+            // Update an Existing assignment(PUT)
+            function handleUpdate(e) {
+                e.preventDefault();
+                if (!assignmentToEdit) return;
+            
+                const updatedData = {
+                  status: editStatus,
+                  scheduled_date: editDate,
+                };
+            
+                fetch(`${BASE_URL}/assignments/${assignmentToEdit.id}`, {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(updatedData),
+                })
+                  .then((r) => {
+                    if (!r.ok) throw new Error(`PUT error: ${r.status} ${r.statusText}`);
+                    return r.json();
+                  })
+                  .then((updatedAssignment) => {
+                    // Update assignment in local state
+                    const updatedList = assignments.map((a) =>
+                      a.id === updatedAssignment.id ? updatedAssignment : a
+                    );
+                    setAssignments(updatedList);
+            
+                    // Exit edit mode
+                    setEditMode(false);
+                    setAssignmentToEdit(null);
+                  })
+                  .catch((err) => {
+                    setError(err.message);
+                  });
+              }
+            
 }
 
 export default AssignmentsPage;
