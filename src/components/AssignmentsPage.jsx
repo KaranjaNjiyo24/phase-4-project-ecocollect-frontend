@@ -113,6 +113,27 @@ function AssignmentsPage() {
                     setError(err.message);
                   });
               }
+            // Delete an assignment(DELETE)
+              function handleDeleteClick(id) {
+                setError(null);
+            
+                fetch(`${BASE_URL}/assignments/${id}`, {
+                  method: "DELETE",
+                })
+                  .then((r) => {
+                    if (r.status === 404) {
+                      throw new Error(`Assignment with ID ${id} not found`);
+                    } else if (!r.ok) {
+                      throw new Error(`DELETE error: ${r.status} ${r.statusText}`);
+                    }
+                    // If successful (204), remove from local state
+                    const filtered = assignments.filter((a) => a.id !== id);
+                    setAssignments(filtered);
+                  })
+                  .catch((err) => {
+                    setError(err.message);
+                  });
+              }
             
 }
 
