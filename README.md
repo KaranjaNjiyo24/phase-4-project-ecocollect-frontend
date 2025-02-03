@@ -100,6 +100,9 @@ ecocollect-frontend/
 
    Use the navigation bar to browse Home, Users, Pickup Requests, Assignments, and Login pages. Enjoy the elegant UI and seamless interactions!
 
+4. **Backend repo**
+   [Ecocollect-backend](https://github.com/KaranjaNjiyo24/phase-4-project-ecocollect-backend)
+
 ---
 
 ## Configuration
